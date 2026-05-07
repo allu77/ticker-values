@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib/core';
 import { TickerValuesStack } from '../lib/ticker-values-stack';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file if present
+dotenv.config();
 
 const app = new cdk.App();
 
-// Retrieve Google Spreadsheet ID from CDK context
-const googleSpreadsheetId = app.node.tryGetContext('googleSpreadsheetId');
-const alertEmail = app.node.tryGetContext('alertEmail');
+// Priority: CDK context (command line -c) > environment variables
+const googleSpreadsheetId = app.node.tryGetContext('googleSpreadsheetId') || process.env.GOOGLE_SPREADSHEET_ID;
+const alertEmail = app.node.tryGetContext('alertEmail') || process.env.ALERT_EMAIL;
 
 if (!googleSpreadsheetId) {
-  throw new Error('googleSpreadsheetId context parameter is required. Please provide it using: cdk deploy -c googleSpreadsheetId=YOUR_SPREADSHEET_ID');
+  throw new Error('googleSpreadsheetId is required. Provide it via CDK context (-c googleSpreadsheetId=YOUR_ID) or GOOGLE_SPREADSHEET_ID environment variable');
 }
 
 if (!alertEmail) {
-  throw new Error('alertEmail context parameter is required. Please provide it using: cdk deploy -c alertEmail=your-email@example.com');
+  throw new Error('alertEmail is required. Provide it via CDK context (-c alertEmail=YOUR_EMAIL) or ALERT_EMAIL environment variable');
 }
 
 new TickerValuesStack(app, 'TickerValuesStack', {

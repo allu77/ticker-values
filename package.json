@@ -28,6 +28,7 @@
     "@aws-sdk/client-ssm": "^3.705.0",
     "aws-cdk-lib": "^2.253.0",
     "constructs": "^10.0.0",
+    "dotenv": "^16.4.5",
     "googleapis": "^168.0.0",
     "jsdom": "^24.1.3"
   }

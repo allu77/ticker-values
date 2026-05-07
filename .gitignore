@@ -6,6 +6,8 @@ node_modules
 @eaDir
 .DS_Store
 
+.env
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out
