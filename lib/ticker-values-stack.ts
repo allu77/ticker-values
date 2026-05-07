@@ -73,7 +73,7 @@ export class TickerValuesStack extends cdk.Stack {
       flexibleTimeWindow: {
         mode: 'OFF'
       },
-      scheduleExpression: 'cron(30 6 * * ? *)', // 06:30 every day
+      scheduleExpression: 'cron(* */2 * * ? *)', // Every two hours
       scheduleExpressionTimezone: 'Europe/Berlin', // CET/CEST timezone
       target: {
         arn: tickerFunction.functionArn,
