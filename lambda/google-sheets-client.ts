@@ -1,7 +1,7 @@
 import { google, sheets_v4 } from 'googleapis';
 import { TickerConfig, TickerValue } from './data-models';
 
-interface GoogleCredentials {
+export interface GoogleCredentials {
     type: string;
     project_id: string;
     private_key_id: string;

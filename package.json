@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "run-local": "ts-node --prefer-ts-exts bin/run-local.ts",
+    "run-local:dry": "ts-node --prefer-ts-exts bin/run-local.ts --dry-run"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.145",

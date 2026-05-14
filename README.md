@@ -31,6 +31,44 @@ Then deploy:
 npx cdk deploy
 ```
 
+## Running locally
+
+You can run the update process locally without deploying to AWS.
+
+### Prerequisites
+
+Add the following to your `.env` file:
+
+```
+GOOGLE_SPREADSHEET_ID=your_spreadsheet_id_here
+GOOGLE_CREDENTIALS_FILE=/path/to/service-account.json
+```
+
+`GOOGLE_CREDENTIALS_FILE` should point to a Google service account JSON key file with access to the spreadsheet.
+
+### Commands
+
+Run the full update (all tickers):
+```bash
+npm run run-local
+```
+
+Preview what would be written without modifying the spreadsheet:
+```bash
+npm run run-local:dry
+```
+
+Target a single ticker:
+```bash
+npm run run-local -- --ticker BTC-USD
+npm run run-local:dry -- --ticker BTC-USD
+```
+
+Enable debug logging:
+```bash
+POWERTOOLS_LOG_LEVEL=DEBUG npm run run-local:dry
+```
+
 ## Useful commands
 
 * `npx cdk deploy`  deploy this stack to your default AWS account/region
