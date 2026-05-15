@@ -11,6 +11,8 @@ const app = new cdk.App();
 // Priority: CDK context (command line -c) > environment variables
 const googleSpreadsheetId = app.node.tryGetContext('googleSpreadsheetId') || process.env.GOOGLE_SPREADSHEET_ID;
 const alertEmail = app.node.tryGetContext('alertEmail') || process.env.ALERT_EMAIL;
+const failureThreshold = parseInt(app.node.tryGetContext('failureThreshold') || process.env.FAILURE_THRESHOLD || '3', 10);
+const pollIntervalHours = parseInt(app.node.tryGetContext('pollIntervalHours') || process.env.POLL_INTERVAL_HOURS || '2', 10);
 
 if (!googleSpreadsheetId) {
   throw new Error('googleSpreadsheetId is required. Provide it via CDK context (-c googleSpreadsheetId=YOUR_ID) or GOOGLE_SPREADSHEET_ID environment variable');
@@ -23,6 +25,8 @@ if (!alertEmail) {
 new TickerValuesStack(app, 'TickerValuesStack', {
   spreadSheetId: googleSpreadsheetId,
   alertEmail: alertEmail,
+  failureThreshold,
+  pollIntervalHours,
 
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
@@ -38,3 +42,6 @@ new TickerValuesStack(app, 'TickerValuesStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+cdk.Tags.of(app).add('application', 'TickerValues');
+cdk.Tags.of(app).add('environment', 'prod');
