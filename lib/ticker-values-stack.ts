@@ -45,6 +45,7 @@ export class TickerValuesStack extends cdk.Stack {
         SPREADSHEET_ID: props.spreadSheetId,
         GOOGLE_CREDENTIALS_PARAMETER: '/iuk/ticker-values/google-credentials',
         POWERTOOLS_LOG_LEVEL: 'DEBUG',
+        TZ: 'Europe/Rome' // Ensure consistent timezone for date handling in Lambda, independent of the underlying infrastructure
       },
       logGroup: tickerFunctionLogGroup,
       bundling: {
